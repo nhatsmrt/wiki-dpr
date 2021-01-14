@@ -21,7 +21,7 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
             titles=titles,
             texts=passages,
             return_tensors='pt',
-            truncation=True,
+            truncation=False,
             padding=True
         )
         outputs = model(**encoded_inputs)
@@ -29,8 +29,11 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
 
 
 
-def get_most_relevant_passages(search_query: str, question: str) -> str:
-    passages = retrieve_wiki_page("Nelson Mandela")
+def get_most_relevant_passages(search_query: str, question: str, top_k: int=1) -> List[str]:
+    passages = retrieve_wiki_page(search_query)
     relevance_scores = get_relevance_scores(passages, search_query, question)
-    return passages[relevance_scores.argmax()]
+
+    # get top_k relevance scores (based on https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array)
+    top_k_ind = relevance_scores.argsort()[-top_k:][::-1]
+    return [passages[ind] for ind in top_k_ind]
 
