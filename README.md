@@ -1,4 +1,8 @@
-# A simple tool to retrieve relevant Wikipedia passages
+# Wikipedia Passage Retriever
+
+This package allows for retrieve a wikipedia passage (i.e paragraph) that is relevant to a question.
+
+Under the hood, it uses a [dense passage retriever](https://arxiv.org/pdf/2004.04906.pdf), with pretrained model from HuggingFace's [transformers](https://github.com/huggingface/transformers) library.
 
 To install the package (which comes with the command-line tool):
 ```
