@@ -33,7 +33,8 @@ def get_most_relevant_passages(search_query: str, question: str, top_k: int=1) -
     passages = retrieve_wiki_page(search_query)
     relevance_scores = get_relevance_scores(passages, search_query, question)
 
-    # get top_k relevance scores (based on https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array)
+    # get top_k relevance scores
+    # (based on https://stackoverflow.com/questions/6910641/how-do-i-get-indices-of-n-maximum-values-in-a-numpy-array)
     top_k_ind = relevance_scores.argsort()[-top_k:][::-1]
     return [passages[ind] for ind in top_k_ind]
 
