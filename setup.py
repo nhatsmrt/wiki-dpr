@@ -17,5 +17,10 @@ setup(
         'console_scripts': [
             "wikiretriever = wiki_passage_retriever._cli:cli",
         ],
-    }
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+    ],
 )
