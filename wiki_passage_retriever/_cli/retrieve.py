@@ -10,4 +10,6 @@ def retrieve(query, question, topk):
     """Retrieve most relevant passage to the question from the wiki page."""
     if not (query and question):
         raise click.BadParameter("\"query\" and \"question\" must be provided. For more information, use --help option.")
-    click.echo(get_most_relevant_passages(query, question, topk))
+
+    for passage in get_most_relevant_passages(query, question, topk):
+        click.echo(passage)
