@@ -6,14 +6,14 @@ Under the hood, it uses a [dense passage retriever](https://arxiv.org/pdf/2004.0
 
 ## Usage
 
-To install the package (which comes with the command-line tool):
+To install the package (which comes with the command-line tool), run the following command in terminal:
 ```
   pip install wiki-passage-retriever
 ```
 
-To use the CLI:
+The easiest way to play with the package is to use the command line tool. For instance:
 ```
-  wikiretriever retrieve --query="Nelson Mandela" --question="Who is Nelson Mandela?"
+  wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
 ```
 
 [Colab Notebook Examples](https://colab.research.google.com/drive/1szwoqAAGgwKossSQenCFIvrWoX_CD_QU?usp=sharing)
