@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Web Query Search</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <script>
+    function myFunction() {
+      $('.results').remove()
+
+      var query = $('#search-query').val();
+      var question = $('#question').val();
+      var topk = $('#topk').val();
+
+      $.ajax({
+        url: "/retrieve",
+        type: "GET",
+        data: {
+          query: query,
+          question: question,
+          topk: topk
+        }
+      }).done(function(response) {
+          var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Most Relevant Passages: </b></p>";
+          response = response.result;
+          $.each(response, function(key, val){
+              html+="<p class=results>"+val+"</p>"
+          });
+          html += "<br class=results>";
+          $(".show-data").append(html);
+        });
+  };
+  </script>
+  <body>
+      <p>
+          Retrieve relevant passages to the question from wikipedia <br><br>
+              Wikipedia Search Query: <input type="text" id="search-query" name="search-query"><br><br>
+              Question: <input type="text" id="question" name="question"><br><br>
+              Number of Passages to Display: <input type="int" id="topk" name="topk"><br><br>
+              <button id="clicked" onclick="myFunction()">Submit</button>
+      </p>
+      <div class="show-data" >
+      </div>
+  </body>
+</html>
