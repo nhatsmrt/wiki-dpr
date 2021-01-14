@@ -13,7 +13,7 @@ def retrieve():
     query = request.args.get('query')
     topk = int(request.args.get("topk"))
 
-    print(question, query, topk)
+    print(question, query, topk)  # for debugging
     return jsonify(result=get_most_relevant_passages(query, question, topk))
 
 if __name__ == '__main__':

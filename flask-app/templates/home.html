@@ -25,7 +25,6 @@
           var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Most Relevant Passages: </b></p>";
           response = response.result;
           $.each(response, function(key, val){
-           console.log(val);
               html+="<p class=results>"+val+"</p>"
           });
           html += "<br class=results>";
