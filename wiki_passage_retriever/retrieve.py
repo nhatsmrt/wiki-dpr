@@ -30,7 +30,7 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
 
 
 def get_most_relevant_passages(search_query: str, question: str) -> str:
-    passages = retrieve_wiki_page("Nelson Mandela")
+    passages = retrieve_wiki_page(search_query)
     relevance_scores = get_relevance_scores(passages, search_query, question)
     return passages[relevance_scores.argmax()]
 
