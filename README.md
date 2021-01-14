@@ -7,7 +7,7 @@ To install the package (which comes with the command-line tool):
 
 To use the CLI:
 ```
-  !wikiretriever retrieve --query="Nelson Mandela" --question="Who is Nelson Mandela?"
+  wikiretriever retrieve --query="Nelson Mandela" --question="Who is Nelson Mandela?"
 ```
 
 ## TODO:
