@@ -4,6 +4,8 @@ This package allows for retrieve a wikipedia passage (i.e paragraph) that is rel
 
 Under the hood, it uses a [dense passage retriever](https://arxiv.org/pdf/2004.04906.pdf), with pretrained model from HuggingFace's [transformers](https://github.com/huggingface/transformers) library.
 
+## Usage
+
 To install the package (which comes with the command-line tool):
 ```
   pip install wiki-passage-retriever
@@ -13,6 +15,8 @@ To use the CLI:
 ```
   wikiretriever retrieve --query="Nelson Mandela" --question="Who is Nelson Mandela?"
 ```
+
+[Colab Notebook Examples](https://colab.research.google.com/drive/1szwoqAAGgwKossSQenCFIvrWoX_CD_QU?usp=sharing)
 
 ## TODO:
   * ~~Add option to retrieve k best passages~~
