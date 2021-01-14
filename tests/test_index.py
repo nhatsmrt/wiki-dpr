@@ -4,8 +4,6 @@ import os
 
 class TestIndexing:
     def test_index(self):
-        os.mkdir("tmpindex")
-
         try:
             index_wikipedia("Nelson Mandela", "tmpindex")
             candidates = retrieve_by_index("tmpindex", "Who was Nelson Mandela's father", 5)

@@ -5,6 +5,7 @@ import torch
 from annoy import AnnoyIndex
 from .utils import retrieve_wiki_page
 import json
+import os
 
 
 EMBEDDING_DIMENSION = 768
@@ -27,6 +28,11 @@ def encode_question(question: str) -> ndarray:
 
 
 def annoy_index_passages(passages: List[str], index_dir_path: str):
+    # Create index directiory, if not exist:
+    if not os.path.exists(index_dir_path):
+        os.makedirs(index_dir_path)
+
+
     embeddings = encode_passages(passages)
     indexer = AnnoyIndex(EMBEDDING_DIMENSION, metric='dot')
 
