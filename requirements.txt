@@ -3,3 +3,4 @@ beautifulsoup4
 torch
 transformers
 click
+annoy
