@@ -7,8 +7,8 @@ class TestIndexing:
         os.mkdir("tmpindex")
 
         try:
-            index_wikipedia("Nelson Mandela", "index")
-            candidates = retrieve_by_index("index", "Who was Nelson Mandela's father", 5)
+            index_wikipedia("Nelson Mandela", "tmpindex")
+            candidates = retrieve_by_index("tmpindex", "Who was Nelson Mandela's father", 5)
 
             assert len(candidates) == 5
             # check that the retriever finds the result:
