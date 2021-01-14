@@ -1,5 +1,5 @@
 from wiki_passage_retriever.index import index_wikipedia, retrieve_by_index
-import os
+import shutil
 
 
 class TestIndexing:
@@ -12,4 +12,4 @@ class TestIndexing:
             # check that the retriever finds the result:
             assert list(filter(lambda pas: "Gadla Henry Mphakanyiswa Mandela" in pas, candidates))
         finally:
-            os.rmdir("tmpindex")
+            shutil.rmtree('tmpindex')
