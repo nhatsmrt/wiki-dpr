@@ -16,6 +16,8 @@ The easiest way to play with the package is to use the command line tool. For in
   wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
 ```
 
+I also provide a simple [web app](flask-app/) to retrieve and display the results.
+
 [Colab Notebook Examples](https://colab.research.google.com/drive/1szwoqAAGgwKossSQenCFIvrWoX_CD_QU?usp=sharing)
 
 ## TODO:
