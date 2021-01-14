@@ -1,4 +1,4 @@
-from dpr.dpr import get_relevance_scores, get_most_relevant_passages
+from wiki_passage_retriever.retrieve import get_relevance_scores, get_most_relevant_passages
 
 
 class TestRelevanceScoring:
