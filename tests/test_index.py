@@ -14,4 +14,4 @@ class TestIndexing:
             # check that the retriever finds the result:
             assert list(filter(lambda pas: "Gadla Henry Mphakanyiswa Mandela" in pas, candidates))
         finally:
-            os.remove("tmpindex")
+            os.rmdir("tmpindex")
