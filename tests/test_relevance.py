@@ -17,3 +17,8 @@ class TestRelevanceScoring:
 
     def test_retrieve_most_relevance(self):
         assert "was a South African anti-apartheid revolutionary" in get_most_relevant_passages("Nelson Mandela", "Who is Nelson Mandela?")[0]
+
+    def test_topk(self):
+        candidates = get_most_relevant_passages("Nelson Mandela", "Who is Nelson Mandela's father?", 5)
+        assert len(candidates) == 5
+        assert list(filter(lambda pas: "Gadla Henry Mphakanyiswa Mandela" in pas, candidates))  # check that the retriever finds the result

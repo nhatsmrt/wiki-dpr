@@ -15,9 +15,9 @@ To use the CLI:
 ```
 
 ## TODO:
-  * Add option to retrieve k best passages
+  * ~~Add option to retrieve k best passages~~
   * (Maybe) retrieve individual sentences instead of paragraphs?
   * (When the bug is fixed) Switch to out-of-the-box Huggingface's tokenizer.
   * Add option to run model on GPU
   * Add option to search from different wikipedia articles (e.g first k results from search query)
-  * Add option to control text truncation
+  * Add option to control text truncation (for now, always use full text).
