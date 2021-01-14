@@ -1,5 +1,5 @@
 """
-Need to fix a small bug in DPRReaderTokenizer. See:
+This is HuggingFace transformers' DPRTokenizer, but with a small bug fixed. See:
 https://github.com/huggingface/transformers/issues/9555
 """
 
