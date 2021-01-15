@@ -14,16 +14,16 @@ To install the package (which comes with the command-line tool), run the followi
 The easiest way to play with the package is to use the command line tool. For instance:
 ```
 # Indexing a wikipedia page:
-wikiretriever index -q="Nelson Mandela" -f nelsonindex
+wikiretriever index -q "Nelson Mandela" -f nelsonindex
 
 # Retrieve relevant passages from index:
-wikiretriever indexed-retrieve -q="Who was Nelson Mandela?" -f nelsonindex -k 5
+wikiretriever indexed-retrieve -q "Who was Nelson Mandela?" -f nelsonindex -k 5
 
 # Slow retrieval:
-wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
+wikiretriever retrieve --query "Nelson Mandela" --question "Who was Nelson Mandela's father?" --topk 5
 ```
 
-I also provide a simple [flask application](flask-app/) to retrieve and display the results.
+I also created a simple [flask application](flask-app/) to retrieve and display the results.
 
 [Colab Notebook Examples](https://colab.research.google.com/drive/1szwoqAAGgwKossSQenCFIvrWoX_CD_QU?usp=sharing)
 
