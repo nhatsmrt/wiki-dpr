@@ -13,6 +13,13 @@ To install the package (which comes with the command-line tool), run the followi
 
 The easiest way to play with the package is to use the command line tool. For instance:
 ```
+# Indexing a wikipedia page:
+wikiretriever index -q="Nelson Mandela" -f nelsonindex
+
+# Retrieve relevant passages from index:
+wikiretriever indexed-retrieve -q="Who was Nelson Mandela?" -f nelsonindex -k 5
+
+# Slow retrieval:
   wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
 ```
 
