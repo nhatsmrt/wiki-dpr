@@ -20,7 +20,7 @@ wikiretriever index -q="Nelson Mandela" -f nelsonindex
 wikiretriever indexed-retrieve -q="Who was Nelson Mandela?" -f nelsonindex -k 5
 
 # Slow retrieval:
-  wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
+wikiretriever retrieve --query="Nelson Mandela" --question="Who was Nelson Mandela's father?" --topk=5
 ```
 
 I also provide a simple [flask application](flask-app/) to retrieve and display the results.
