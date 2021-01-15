@@ -15,6 +15,8 @@ class TestRelevanceScoring:
 
         return scores.argmax() == 0
 
+
+class TestRetrieval:
     def test_retrieve_most_relevance(self):
         assert "was a South African anti-apartheid revolutionary" in get_most_relevant_passages("Nelson Mandela", "Who is Nelson Mandela?")[0]
 
