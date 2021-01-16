@@ -23,31 +23,50 @@ def retrieve():
 
     print(question, query, topk)  # for debugging
 
-    # check if the query has already been indexed:
-    with sqlite3.connect(DATABASE_NAME) as conn:
-        conn.execute("SELECT index_dir_path FROM wikipedia_index WHERE query=?", [query])
-        rows = conn.cursor().fetchall()
+    try:
+        with sqlite3.connect(DATABASE_NAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT index_dir_path FROM wikipedia_index WHERE query=?", [query])
+            row = cursor.fetchone()  # since query is unique, there should be at most one row
 
-        for row in rows:
-            # since query is unique, there should be at most one row
-            return jsonify(result=retrieve_by_index(row[0], question))
-        else:
-            # query was not indexed:
-            return jsonify(result=get_most_relevant_passages(query, question, topk))
+            if row:
+                print("Found indexed wikipedia page")
+                return jsonify(result=retrieve_by_index(row[0], question, topk))
+            else:
+                # query was not indexed:
+                print("Page not indexed.")
+                return jsonify(result=get_most_relevant_passages(query, question, topk))
+    except Exception as e:
+        print("Accessing DB fails with exception: \n {}".format(str(e)))  # print exception for debugging
+        return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
 
 
 @app.route('/index', methods=['POST'])
 def index():
-    query = request.args.get('query')
-    index_dir_path = str(uuid.uuid4())  # randomize a name to store queries
-    index_wikipedia(query, index_dir_path)
+    query = request.form.get('query')
 
-    # Inserts metadata to database:
-    with sqlite3.connect(DATABASE_NAME) as conn:
-        cursor = conn.cursor()
-        sql_query = "INSERT INTO wikipedia_index(query_name, index_dir_path) VALUES(?, ?);"
-        cursor.execute(sql_query, [query, index_dir_path])
-        conn.commit()
+    try:
+        with sqlite3.connect(DATABASE_NAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM wikipedia_index WHERE query=?", [query])
+            row = cursor.fetchone() # since query is unique, there should be at most one row
+
+            if row:
+                print("Found indexed wikipedia page")
+            else:
+                print("Query was not indexed. indexing now")
+                index_dir_path = str(uuid.uuid4())  # randomize a name to store queries
+                print(query, index_dir_path)  # for debugging purpose
+                index_wikipedia(query, index_dir_path)
+
+                # Inserts metadata to database:
+                print("Page not indexed.")
+                sql_query = "INSERT INTO wikipedia_index(query, index_dir_path) VALUES(?, ?);"
+                cursor.execute(sql_query, [query, index_dir_path])
+                conn.commit()
+    except Exception as e:
+        print("Accessing DB fails with exception: \n {}".format(str(e)))  # print exception for debugging
+        return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
