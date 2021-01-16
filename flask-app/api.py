@@ -31,7 +31,7 @@ def retrieve():
 
             if row:
                 print("Found indexed wikipedia page")
-                return jsonify(result=retrieve_by_index(row[0], question, topk))
+                return jsonify(result=retrieve_by_index("artifacts/{}".format(row[0]), question, topk))
             else:
                 # query was not indexed:
                 print("Page not indexed.")
@@ -57,7 +57,7 @@ def index():
                 print("Query was not indexed. indexing now")
                 index_dir_path = str(uuid.uuid4())  # randomize a name to store queries
                 print(query, index_dir_path)  # for debugging purpose
-                index_wikipedia(query, index_dir_path)
+                index_wikipedia(query, "artifacts/{}".format(index_dir_path))
 
                 # Inserts metadata to database:
                 print("Page not indexed.")
