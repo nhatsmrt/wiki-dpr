@@ -6,7 +6,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <script>
-    function myFunction() {
+    function retrieve() {
       $('.results').remove()
 
       var query = $('#search-query').val();
@@ -29,16 +29,38 @@
           });
           html += "<br class=results>";
           $(".show-data").append(html);
-        });
-  };
+      });
+    };
+
+    function index() {
+      $('.results').remove()
+      var query = $('#index-search-query').val();
+
+      $.ajax({
+        url: "/index",
+        type: "POST",
+        data: {
+          query: query
+        }
+      }).done(function(response) {
+          var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Indexing complete. </b></p>";
+          $(".show-data").append(html);
+      });
+    };
   </script>
   <body>
+      <h1>Retrieve relevant passages to the question from Wikipedia</h1>
       <p>
-          Retrieve relevant passages to the question from wikipedia <br><br>
               Wikipedia Search Query: <input type="text" id="search-query" name="search-query"><br><br>
               Question: <input type="text" id="question" name="question"><br><br>
               Number of Passages to Display: <input type="int" id="topk" name="topk"><br><br>
-              <button id="clicked" onclick="myFunction()">Submit</button>
+              <button id="retrieve-but" onclick="retrieve()">Submit</button>
+      </p>
+      <h1>Index a Wikipedia page</h1>
+      <p>
+          Index a wikipedia page <br><br>
+              Wikipedia Search Query: <input type="text" id="index-search-query" name="index-search-query"><br><br>
+              <button id="index-but" onclick="index()">Submit</button>
       </p>
       <div class="show-data" >
       </div>
