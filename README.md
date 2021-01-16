@@ -36,3 +36,4 @@ I also created a simple [flask application](flask-app/) to retrieve and display 
   * Add option to control text truncation (for now, always use full text).
   * Extract span (instead of outputting entire text)
   * Validate inputs and edge cases
+  * Protect database by transactions
