@@ -1,4 +1,4 @@
-from wiki_passage_retriever.retrieve import get_relevance_scores, get_most_relevant_passages
+from wiki_passage_retriever.retrieve import get_relevance_scores, get_most_relevant_passages, get_most_relevant_spans_from_wiki
 
 
 class TestRelevanceScoring:
@@ -24,3 +24,11 @@ class TestRetrieval:
         candidates = get_most_relevant_passages("Nelson Mandela", "Who is Nelson Mandela's father?", 5)
         assert len(candidates) == 5
         assert list(filter(lambda pas: "Gadla Henry Mphakanyiswa Mandela" in pas, candidates))  # check that the retriever finds the result
+
+
+class TestSpan:
+    def test_span(self):
+        question = "Who was Nelson Mandela's father"
+        spans = get_most_relevant_spans_from_wiki("Nelson Mandela", question, 5)
+        assert len(spans) == 5
+        assert spans[0] == "henry mphakanyiswa mandela"
