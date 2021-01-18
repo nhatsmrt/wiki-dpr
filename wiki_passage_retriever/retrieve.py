@@ -7,6 +7,9 @@ import torch
 from numpy import ndarray
 
 
+__all__ = ['get_most_relevant_spans_from_wiki', 'get_most_relevant_passages']
+
+
 def process_with_dpr_reader(passages: List[str], titles: Union[List[str], str], question: str) -> DPRReaderOutput:
     if isinstance(titles, str):
         return get_relevance_scores(passages, [titles] * len(passages), question)
@@ -34,13 +37,13 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
     return outputs.relevance_logits.numpy()
 
 
-def retrieve_most_relevant_spans(passages: List[str], titles: Union[List[str], str], question: str, top_k: int=1) -> List[str]:
+def get_most_relevant_spans(passages: List[str], titles: Union[List[str], str], question: str, top_k: int=1) -> List[str]:
     tokenizer, encoded_inputs, outputs = process_with_dpr_reader(passages, titles, question)
     return [span.text for span in tokenizer.decode_best_spans(encoded_inputs, outputs, num_spans=top_k)]
 
 
-def retrieve_most_relevant_spans_from_wiki(search_query: str, question: str, top_k: int=1) -> List[str]:
-    return retrieve_most_relevant_spans(retrieve_wiki_page(search_query), search_query, question, top_k)
+def get_most_relevant_spans_from_wiki(search_query: str, question: str, top_k: int=1) -> List[str]:
+    return get_most_relevant_spans(retrieve_wiki_page(search_query), search_query, question, top_k)
 
 
 def get_most_relevant_passages(search_query: str, question: str, top_k: int=1) -> List[str]:
