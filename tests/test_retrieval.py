@@ -31,4 +31,4 @@ class TestSpan:
         question = "Who was Nelson Mandela's father"
         spans = get_most_relevant_spans_from_wiki("Nelson Mandela", question, 5)
         assert len(spans) == 5
-        assert spans[0] == "henry mphakanyiswa mandela"
+        assert spans[0] == "gadla henry mphakanyiswa mandela"
