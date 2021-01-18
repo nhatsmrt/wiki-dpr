@@ -2,7 +2,7 @@ from transformers import DPRReader
 from transformers.models.dpr import DPRReaderOutput
 from .dpr_tokenizer import MyDPRReaderTokenizer
 from .utils import retrieve_wiki_page
-from typing import List, Union
+from typing import List, Union, Tuple, Dict
 import torch
 from numpy import ndarray
 
@@ -10,9 +10,9 @@ from numpy import ndarray
 __all__ = ['get_most_relevant_spans_from_wiki', 'get_most_relevant_passages']
 
 
-def process_with_dpr_reader(passages: List[str], titles: Union[List[str], str], question: str) -> DPRReaderOutput:
+def process_with_dpr_reader(passages: List[str], titles: Union[List[str], str], question: str) -> Tuple[MyDPRReaderTokenizer, Dict[str, List[List[int]]], DPRReaderOutput]:
     if isinstance(titles, str):
-        return get_relevance_scores(passages, [titles] * len(passages), question)
+        return process_with_dpr_reader(passages, [titles] * len(passages), question)
 
     with torch.no_grad():
         tokenizer = MyDPRReaderTokenizer.from_pretrained('facebook/dpr-reader-single-nq-base')
