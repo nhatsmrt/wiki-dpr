@@ -1,15 +1,13 @@
 from transformers import DPRReader
+from transformers.models.dpr import DPRReaderOutput
 from .dpr_tokenizer import MyDPRReaderTokenizer
 from .utils import retrieve_wiki_page
 from typing import List, Union
 import torch
+from numpy import ndarray
 
 
-def get_relevance_scores(passages: List[str], titles: Union[List[str], str], question: str):
-    """
-    Given a list of passages, a list of corresponding titles (or a single title if all passages are in the same article), and a question,
-    returns the relevance score of the passages with respect to the question.
-    """
+def process_with_dpr_reader(passages: List[str], titles: Union[List[str], str], question: str) -> DPRReaderOutput:
     if isinstance(titles, str):
         return get_relevance_scores(passages, [titles] * len(passages), question)
 
@@ -24,9 +22,25 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
             truncation=False,
             padding=True
         )
-        outputs = model(**encoded_inputs)
-        return outputs.relevance_logits.numpy()
+        return tokenizer, encoded_inputs, model(**encoded_inputs)
 
+
+def get_relevance_scores(passages: List[str], titles: Union[List[str], str], question: str) -> ndarray:
+    """
+    Given a list of passages, a list of corresponding titles (or a single title if all passages are in the same article), and a question,
+    returns the relevance score of the passages with respect to the question.
+    """
+    _, _, outputs = process_with_dpr_reader(passages, titles, question)
+    return outputs.relevance_logits.numpy()
+
+
+def retrieve_most_relevant_spans(passages: List[str], titles: Union[List[str], str], question: str, top_k: int=1) -> List[str]:
+    tokenizer, encoded_inputs, outputs = process_with_dpr_reader(passages, titles, question)
+    return [span.text for span in tokenizer.decode_best_spans(encoded_inputs, outputs, num_spans=top_k)]
+
+
+def retrieve_most_relevant_spans_from_wiki(search_query: str, question: str, top_k: int=1) -> List[str]:
+    return retrieve_most_relevant_spans(retrieve_wiki_page(search_query), search_query, question, top_k)
 
 
 def get_most_relevant_passages(search_query: str, question: str, top_k: int=1) -> List[str]:
