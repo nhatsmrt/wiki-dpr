@@ -11,6 +11,9 @@ import itertools
 __all__ = ['retrieve_wiki_page']
 
 
+MIN_SENTENCE_LENGTH = 4  # filter sentences with less than 4 characters (likely to be noise)
+
+
 def remove_citation(paragraph: str) -> str:
     """Remove all citations (numbers in side square brackets) in paragraph"""
     return re.sub(r'\[\d+\]', '', paragraph)
@@ -40,7 +43,8 @@ def retrieve_page_content(url: str) -> List[str]:
     sentences = itertools.chain.from_iterable(map(sent_tokenize, paragraphs))
     preprocess_fn = compose_fns([remove_citation, remove_new_line])
 
-    return list(filter(lambda sent: len(sent) > 0, map(lambda sent: preprocess_fn(sent), sentences))) # also filter empty strings
+    # preprocess sentences, stripping starting and trailing spaces, and then filter out too short sentences
+    return list(filter(lambda sent: len(sent) > MIN_SENTENCE_LENGTH, map(lambda sent: preprocess_fn(sent).strip(), sentences)))
 
 
 def retrieve_wiki_page(query: str) -> List[str]:
