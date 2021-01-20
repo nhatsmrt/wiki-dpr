@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 from typing import List, Callable
+from nltk.tokenize import sent_tokenize
+import itertools
 
 
 __all__ = ['retrieve_wiki_page']
@@ -31,10 +33,11 @@ def retrieve_page_content(url: str) -> List[str]:
     html = urlopen(url)
     soup = BeautifulSoup(html, 'html.parser')
 
+    paragraphs = list(map(lambda p: p.getText(), soup.find_all('p')))
+    sentences = itertools.chain.from_iterable(map(sent_tokenize, paragraphs))
     preprocess_fn = compose_fns([remove_citation, remove_new_line])
-    paragraphs = list(map(lambda p: preprocess_fn(p.getText()), soup.find_all('p')))
 
-    return paragraphs
+    return list(filter(lambda sent: len(sent) > 0, map(lambda sent: preprocess_fn(sent), sentences))) # also filter empty strings
 
 
 def retrieve_wiki_page(query: str) -> List[str]:
