@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 from typing import List, Callable
+import nltk
 from nltk.tokenize import sent_tokenize
 import itertools
 
@@ -32,6 +33,8 @@ def compose_fns(functions: List[Callable]) -> Callable:
 def retrieve_page_content(url: str) -> List[str]:
     html = urlopen(url)
     soup = BeautifulSoup(html, 'html.parser')
+
+    nltk.download('punkt')  # make sure that the tokenizer is downloaded
 
     paragraphs = list(map(lambda p: p.getText(), soup.find_all('p')))
     sentences = itertools.chain.from_iterable(map(sent_tokenize, paragraphs))
