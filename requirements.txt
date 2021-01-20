@@ -4,3 +4,4 @@ torch
 transformers
 click
 annoy
+nltk
