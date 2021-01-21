@@ -5,7 +5,7 @@ with open('requirements.txt', 'r') as req_file:
 
 setup(
     name='wiki_passage_retriever',
-    version='0.1.5.a1',
+    version='0.1.5.a2',
     author="Nhat Pham",
     author_email="nphamcs@gmail.com",
     description="A small tool for retrieving relevant passages to a question from Wikipedia",
