@@ -28,6 +28,12 @@ def compose_fns(functions: List[Callable]) -> Callable:
 
 
 def retrieve_page_content(url: str) -> List[str]:
+    """
+    Retrieve all the page's text paragraphs.
+
+    :param url: URL of the page.
+    :return: list of paragraphs of the page.
+    """
     html = urlopen(url)
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -38,7 +44,12 @@ def retrieve_page_content(url: str) -> List[str]:
 
 
 def retrieve_wiki_page(query: str) -> List[str]:
-    """Searches wikpedia for a query, gets the first result, then extracts all the paragraphs."""
+    """
+    Searches wikpedia for a query, gets the first result, then extracts all the paragraphs.
+
+    :param query: Wikipedia search query.
+    :return: list of paragraphs from the first result.
+    """
     session = requests.Session()
     api_url = "https://en.wikipedia.org/w/api.php"
 
