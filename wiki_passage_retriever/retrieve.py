@@ -39,7 +39,6 @@ def process_with_dpr_reader(passages: List[str], titles: Union[List[str], str], 
 def get_relevance_scores(passages: List[str], titles: Union[List[str], str], question: str) -> ndarray:
     """
     Computes the relevance score of the passages with respect to a question.
-    returns the relevance score of the passages with respect to the question.
 
     :param passages:
     :param titles: a list of corresponding titles (or a single title if all passages are in the same article),
