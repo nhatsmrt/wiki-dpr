@@ -80,9 +80,9 @@ def retrieve_by_index(index_dir_path: str, question: str, top_k: int=1) -> List[
     Retrieves the most relevant passages to a question, using the indexed embedding of the passages.
 
     :param index_dir_path: path to the index and texts.
-    :param question: question
+    :param question:
     :param top_k: number of relevant passages to retrieve.
-    :return: list of most relevant passages.
+    :return: list of the most relevant passages.
     """
     question_embedding = encode_question(question)
     indexer = AnnoyIndex(EMBEDDING_DIMENSION, 'dot')

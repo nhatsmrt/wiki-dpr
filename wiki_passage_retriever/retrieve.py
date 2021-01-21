@@ -47,6 +47,14 @@ def get_most_relevant_spans_from_wiki(search_query: str, question: str, top_k: i
 
 
 def get_most_relevant_passages(search_query: str, question: str, top_k: int=1) -> List[str]:
+    """
+    Retrieves the most relevant passages to a question from a Wikipedia page
+
+    :param search_query: the search query for Wikipedia. Will return the passages from the first result.
+    :param question:
+    :param top_k: number of relevant passages to retrieve.
+    :return: list of the most relevant passages.
+    """
     passages = retrieve_wiki_page(search_query)
     relevance_scores = get_relevance_scores(passages, search_query, question)
 
