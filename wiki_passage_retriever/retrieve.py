@@ -50,6 +50,15 @@ def get_relevance_scores(passages: List[str], titles: Union[List[str], str], que
 
 
 def get_most_relevant_spans(passages: List[str], titles: Union[List[str], str], question: str, top_k: int=1) -> List[str]:
+    """
+    Gets the most relevant spans from the list of passages
+
+    :param passages:
+    :param titles:
+    :param question:
+    :param top_k: number of relevant spans to retrieve.
+    :return: list of the most relevant spans.
+    """
     tokenizer, encoded_inputs, outputs = process_with_dpr_reader(passages, titles, question)
     return [span.text for span in tokenizer.decode_best_spans(encoded_inputs, outputs, num_spans=top_k)]
 
