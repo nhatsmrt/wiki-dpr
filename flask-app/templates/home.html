@@ -8,6 +8,7 @@
   <script>
     function retrieve() {
       $('.results').remove()
+      $(':button').prop('disabled', true); // Disable all the buttons
       $(".show-data").append("<br class=waiting> <p class=waiting> <b class=waiting> Waiting for results... </b></p>");
 
       var query = $('#search-query').val();
@@ -31,11 +32,13 @@
           });
           html += "<br class=results>";
           $(".show-data").append(html);
+          $(':button').prop('disabled', false); // Re-enable all the buttons
       });
     };
 
     function index() {
       $('.results').remove()
+      $(':button').prop('disabled', true); // Disable all the buttons
       $(".show-data").append("<br class=waiting> <p class=waiting> <b class=waiting> Waiting for results... </b></p>");
       var query = $('#index-search-query').val();
 
@@ -49,6 +52,7 @@
           $('.waiting').remove()
           var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Indexing complete. </b></p>";
           $(".show-data").append(html);
+          $(':button').prop('disabled', false); // Re-enable all the buttons
       });
     };
   </script>
