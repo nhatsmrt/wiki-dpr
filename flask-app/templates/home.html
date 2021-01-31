@@ -8,6 +8,7 @@
   <script>
     function retrieve() {
       $('.results').remove()
+      $(".show-data").append("<br class=waiting> <p class=waiting> <b class=waiting> Waiting for results... </b></p>");
 
       var query = $('#search-query').val();
       var question = $('#question').val();
@@ -22,6 +23,7 @@
           topk: topk
         }
       }).done(function(response) {
+          $('.waiting').remove()
           var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Most Relevant Passages: </b></p>";
           response = response.result;
           $.each(response, function(key, val){
@@ -34,6 +36,7 @@
 
     function index() {
       $('.results').remove()
+      $(".show-data").append("<br class=waiting> <p class=waiting> <b class=waiting> Waiting for results... </b></p>");
       var query = $('#index-search-query').val();
 
       $.ajax({
@@ -43,6 +46,7 @@
           query: query
         }
       }).done(function(response) {
+          $('.waiting').remove()
           var html = "<br class=results><br class=results><br class=results><p class=results> <b class=results> Indexing complete. </b></p>";
           $(".show-data").append(html);
       });
